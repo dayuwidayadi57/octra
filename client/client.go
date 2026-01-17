@@ -102,6 +102,12 @@ func GenerateNewKeyPairFromPriv(privateKeyB64 string) (string, string, string, e
 	return PublicKeyToAddress(pub), base64.StdEncoding.EncodeToString(pub), privateKeyB64, nil
 }
 
+func FromAtoms(atoms *big.Int) string {
+	f := new(big.Float).SetInt(atoms)
+	f.Quo(f, big.NewFloat(1e6))
+	return f.Text('f', 6)
+}
+
 func ToAtoms(amount float64) *big.Int {
 	val := big.NewFloat(amount)
 	multiplier := new(big.Float).SetFloat64(1e6)
